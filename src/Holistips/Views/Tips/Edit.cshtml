@@ -1,0 +1,87 @@
+@model Holistips.Models.Tip
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <h4>Tip</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="ID" />
+        <div class="form-group">
+            <label asp-for="TipAnalogy" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="TipAnalogy" class="form-control" />
+                <span asp-validation-for="TipAnalogy" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="TipExplanation" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="TipExplanation" class="form-control" />
+                <span asp-validation-for="TipExplanation" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="TipHashtags" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="TipHashtags" class="form-control" />
+                <span asp-validation-for="TipHashtags" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="TipRefs" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="TipRefs" class="form-control" />
+                <span asp-validation-for="TipRefs" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="TipTitle" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="TipTitle" class="form-control" />
+                <span asp-validation-for="TipTitle" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="TipWhenTo" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="TipWhenTo" class="form-control" />
+                <span asp-validation-for="TipWhenTo" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="TipWhere" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="TipWhere" class="form-control" />
+                <span asp-validation-for="TipWhere" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+</body>
+</html>

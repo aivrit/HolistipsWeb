@@ -1,0 +1,79 @@
+@model IEnumerable<Holistips.Models.Tip>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TipAnalogy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipExplanation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipHashtags)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipRefs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipWhenTo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipWhere)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipAnalogy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipExplanation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipHashtags)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipRefs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipWhenTo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipWhere)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>
