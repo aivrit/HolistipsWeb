@@ -15,6 +15,10 @@ namespace Holistips.Models
 
         public List<Tip> Tips { get; set; }
 
+        public DateTime TipPackageCreationDate { get; set; }
+
+        public int PackageAuthorID { get; set; }
+
         public TipPackage()
         {
             Tips = new List<Tip>();

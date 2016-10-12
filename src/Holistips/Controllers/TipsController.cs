@@ -23,6 +23,7 @@ namespace Holistips.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Tips.ToListAsync());
+
         }
 
         // GET: Tips/Details/5

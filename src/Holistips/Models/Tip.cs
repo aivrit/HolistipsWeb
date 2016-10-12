@@ -28,5 +28,9 @@ namespace Holistips.Models
         public string TipRefs { get; set; }
 
         public string TipHashtags { get; set; }
+
+        public DateTime TipCreationDate { get; set; }
+
+        public int TipAuthorID { get; set; }
     }
 }

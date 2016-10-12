@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Holistips.Data;
 using Holistips.Models;
 using Holistips.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Holistips
 {
@@ -54,6 +55,10 @@ namespace Holistips
 
             services.AddMvc();
 
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new RequireHttpsAttribute());
+            });
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
