@@ -16,6 +16,7 @@ namespace Holistips.Data
         }
 
         public DbSet<Tip> Tips { get; set; }
+        public DbSet<TipPackage> TipPackages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
