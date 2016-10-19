@@ -89,6 +89,12 @@ namespace Holistips
 
             app.UseIdentity();
 
+            app.UseFacebookAuthentication(new FacebookOptions()
+            {
+                AppId = "1324226937589764",
+                AppSecret = "328ff3564f43109da956bc3c7d1c1d6e"
+            });
+
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
 
             app.UseMvc(routes =>
