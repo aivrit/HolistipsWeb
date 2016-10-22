@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Holistips.Data;
 using Microsoft.EntityFrameworkCore;
+using Holistips.Models;
 
 namespace Holistips.Controllers
 {
@@ -18,10 +19,45 @@ namespace Holistips.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await _context.Tips.ToListAsync());
+            List<TipAndPackage> model = new List<TipAndPackage>();
+
+            var query = from tip in _context.Tips
+                        join package in _context.TipPackages on tip.TipPackageID equals package.ID into gj
+                        from parentpackage in gj.DefaultIfEmpty()
+                        select new
+                        {
+                            tip.TipAuthorID,
+                            tip.TipTitle,
+                            tip.TipExplanation,
+                            tip.TipWhenTo,
+                            tip.TipWhere,
+                            tip.TipAnalogy,
+                            tip.TipHashtags,
+                            tip.TipRefs,
+                            tip.TipCreationDate,
+                            PacakgeTitle = (parentpackage == null ? String.Empty : parentpackage.PacakgeTitle)
+                        };
+
+            foreach (var item in query) //retrieve each item and assign to model
+            {
+                model.Add(new TipAndPackage()
+                {
+                    PackageTitle = item.PacakgeTitle,
+                    TipAnalogy = item.TipAnalogy,
+                    TipCreationDate = item.TipCreationDate,
+                    TipExplanation = item.TipExplanation,
+                    TipHashtags = item.TipHashtags,
+                    TipRefs = item.TipRefs,
+                    TipTitle = item.TipTitle,
+                    TipWhenTo = item.TipWhenTo,
+                    TipWhere = item.TipWhere
+                });
+            }
+                return View(model);
         }
+        
 
         public IActionResult About()
         {

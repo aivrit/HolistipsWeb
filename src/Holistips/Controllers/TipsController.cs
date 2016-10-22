@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -20,9 +20,17 @@ namespace Holistips.Controllers
         }
 
         // GET: Tips
-        public async Task<IActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await _context.Tips.ToListAsync());
+
+            var query = from tip in _context.Tips
+                        join package in _context.TipPackages on tip.TipPackageID equals package.ID into gj
+                        from parentpackage in gj.DefaultIfEmpty()
+                        select new { tip.TipAuthorID, tip.TipTitle, tip.TipExplanation, tip.TipWhenTo, tip.TipWhere, tip.TipAnalogy,
+                                     tip.TipHashtags, tip.TipRefs, tip.TipCreationDate,
+                                     PacakgeTitle = (parentpackage == null ? String.Empty: parentpackage.PacakgeTitle)};
+
+            return View(query);
 
         }
 
@@ -54,10 +62,11 @@ namespace Holistips.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,TipAnalogy,TipExplanation,TipHashtags,TipRefs,TipTitle,TipWhenTo,TipWhere")] Tip tip)
+        public async Task<IActionResult> Create([Bind("ID,TipAnalogy,TipExplanation,TipHashtags,TipRefs,TipTitle,TipWhenTo,TipWhere,TipPackageID,TipAuthorID")] Tip tip)
         {
             if (ModelState.IsValid)
             {
+                tip.TipCreationDate = DateTime.Now;
                 _context.Add(tip);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");

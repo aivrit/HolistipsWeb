@@ -32,5 +32,6 @@ namespace Holistips.Models
         public DateTime TipCreationDate { get; set; }
 
         public int TipAuthorID { get; set; }
+
     }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Holistips.Models.Tip>
+﻿@model List<TipAndPackage>
 
 @{
     ViewData["Title"] = "Home Page";
@@ -48,7 +48,7 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td> k </td>
+                        <td> @item.PackageTitle </td>
                         <td>@item.TipTitle</td>
                         <td>@item.TipExplanation</td>
                         <td>@item.TipWhenTo</td>
