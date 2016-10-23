@@ -1,0 +1,38 @@
+@model IEnumerable<Holistips.Models.TipPackage>
+
+@{
+    ViewData["Title"] = "PackagesOnly";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+    <h2 class="sub-header">Packages Search</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Package</th>
+                        <th>Description</th>
+                        <th>Creation Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                   {
+                        <tr>
+                            <td>@item.PacakgeTitle</td>
+                            <td>@item.PackageDescription</td>
+                            <td>@item.TipPackageCreationDate.Day - @item.TipPackageCreationDate.Month - @item.TipPackageCreationDate.Year</td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+</div>
+
+
+
+

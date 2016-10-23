@@ -1,0 +1,71 @@
+@model IEnumerable<Holistips.Models.TipAndPackage>
+
+@{
+    ViewData["Title"] = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+    <div class="row">
+        <h2 class="sub-header">Search</h2>
+        <form>
+            <div class="col-lg-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for..." id="SearchQuery" name="SearchQuery">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">Go!</button>
+                    </span>
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+            <div class="col-lg-6">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input type="checkbox" aria-label="Packages Only" placeholder="Packages Only" id="PackagesOnly" name="PackagesOnly">
+                    </span>
+                    <input type="text" class="form-control" aria-label="..." value="Packages Only?" readonly="readonly" style="width:130px;">
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+        </form>
+    </div>
+@if (ViewBag.SearchQuery != null)
+{
+  <div class="row" style="padding-top:20px">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Package</th>
+                        <th>Title</th>
+                        <th>Explanation</th>
+                        <th>When?</th>
+                        <th>Where?</th>
+                        <th>Analogy</th>
+                        <th>#</th>
+                        <th>References</th>
+                        <th>Created</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td> @item.PackageTitle </td>
+                            <td>@item.TipTitle</td>
+                            <td>@item.TipExplanation</td>
+                            <td>@item.TipWhenTo</td>
+                            <td>@item.TipWhere</td>
+                            <td>@item.TipAnalogy</td>
+                            <td>@item.TipHashtags</td>
+                            <td>@item.TipRefs</td>
+                            <td>@item.TipCreationDate.Day - @item.TipCreationDate.Month - @item.TipCreationDate.Year</td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+       </div>
+}
+    </div>
