@@ -24,7 +24,7 @@ namespace Holistips.Controllers
             List<TipAndPackage> model = new List<TipAndPackage>();
 
             var query = from tip in _context.Tips
-                        join package in _context.TipPackages on tip.TipPackageID equals package.ID into gj
+                        join package in _context.TipPackages on tip.TipPackage equals package into gj
                         from parentpackage in gj.DefaultIfEmpty()
                         select new
                         {
