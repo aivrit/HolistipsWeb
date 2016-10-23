@@ -59,6 +59,7 @@ namespace Holistips.Controllers
         {
             if (ModelState.IsValid)
             {
+                tip.TipCreationDate = DateTime.Now;
                 _context.Add(tip);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
