@@ -55,6 +55,9 @@ namespace Holistips.Controllers
                     TipWhere = item.TipWhere
                 });
             }
+
+            
+
                 return View(model);
         }
         

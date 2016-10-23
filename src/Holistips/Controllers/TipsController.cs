@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -20,18 +20,10 @@ namespace Holistips.Controllers
         }
 
         // GET: Tips
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
-
-            var query = from tip in _context.Tips
-                        join package in _context.TipPackages on tip.TipPackageID equals package.ID into gj
-                        from parentpackage in gj.DefaultIfEmpty()
-                        select new { tip.TipAuthorID, tip.TipTitle, tip.TipExplanation, tip.TipWhenTo, tip.TipWhere, tip.TipAnalogy,
-                                     tip.TipHashtags, tip.TipRefs, tip.TipCreationDate,
-                                     PacakgeTitle = (parentpackage == null ? String.Empty: parentpackage.PacakgeTitle)};
-
-            return View(query);
-
+            var applicationDbContext = _context.Tips.Include(t => t.TipPackage);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Tips/Details/5
@@ -54,6 +46,7 @@ namespace Holistips.Controllers
         // GET: Tips/Create
         public IActionResult Create()
         {
+            ViewData["TipPackageID"] = new SelectList(_context.TipPackages, "ID", "ID");
             return View();
         }
 
@@ -62,15 +55,15 @@ namespace Holistips.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,TipAnalogy,TipExplanation,TipHashtags,TipRefs,TipTitle,TipWhenTo,TipWhere,TipPackageID,TipAuthorID")] Tip tip)
+        public async Task<IActionResult> Create([Bind("ID,TipAnalogy,TipAuthorID,TipCreationDate,TipExplanation,TipHashtags,TipPackageID,TipRefs,TipTitle,TipWhenTo,TipWhere")] Tip tip)
         {
             if (ModelState.IsValid)
             {
-                tip.TipCreationDate = DateTime.Now;
                 _context.Add(tip);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            ViewData["TipPackageID"] = new SelectList(_context.TipPackages, "ID", "ID", tip.TipPackageID);
             return View(tip);
         }
 
@@ -87,6 +80,7 @@ namespace Holistips.Controllers
             {
                 return NotFound();
             }
+            ViewData["TipPackageID"] = new SelectList(_context.TipPackages, "ID", "ID", tip.TipPackageID);
             return View(tip);
         }
 
@@ -95,7 +89,7 @@ namespace Holistips.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,TipAnalogy,TipExplanation,TipHashtags,TipRefs,TipTitle,TipWhenTo,TipWhere")] Tip tip)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,TipAnalogy,TipAuthorID,TipCreationDate,TipExplanation,TipHashtags,TipPackageID,TipRefs,TipTitle,TipWhenTo,TipWhere")] Tip tip)
         {
             if (id != tip.ID)
             {
@@ -122,6 +116,7 @@ namespace Holistips.Controllers
                 }
                 return RedirectToAction("Index");
             }
+            ViewData["TipPackageID"] = new SelectList(_context.TipPackages, "ID", "ID", tip.TipPackageID);
             return View(tip);
         }
 

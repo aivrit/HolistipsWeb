@@ -1,17 +1,11 @@
 @model Holistips.Models.Tip
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
-</head>
-<body>
+<h2>Details</h2>
 
 <div>
     <h4>Tip</h4>
@@ -22,6 +16,18 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.TipAnalogy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TipAuthorID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TipAuthorID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TipCreationDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TipCreationDate)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.TipExplanation)
@@ -65,5 +71,3 @@
     <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
-</body>
-</html>

@@ -1,17 +1,12 @@
 @model IEnumerable<Holistips.Models.Tip>
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
+<h2>Index</h2>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -20,6 +15,12 @@
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.TipAnalogy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipAuthorID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipCreationDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.TipExplanation)
@@ -49,6 +50,12 @@
                 @Html.DisplayFor(modelItem => item.TipAnalogy)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.TipAuthorID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipCreationDate)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.TipExplanation)
             </td>
             <td>
@@ -75,5 +82,3 @@
 }
     </tbody>
 </table>
-</body>
-</html>
