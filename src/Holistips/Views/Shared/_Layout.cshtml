@@ -32,12 +32,19 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                       <li><a asp-area="" asp-controller="Account" asp-action="Login">Log Out</a></li>
+                    }
+                    else
+                    {
+                        <li><a asp-area="" asp-controller="Account" asp-action="Login">Log in</a></li>
+                    }
+                    <li><a asp-area="" asp-controller="Tips" asp-action="Index">Tips</a></li>
+                    <li><a asp-area="" asp-controller="TipPackages" asp-action="Index">Packages</a></li>
                 </ul>
                 <form class="navbar-form navbar-right">
-                    <input type="text" class="form-control" placeholder="Search...">
+                    <input type="text" class="form-control" placeholder="Search..." name="SearchQuery" id="SearchQuery"  formaction="@Url.Action("Index", "Search")"> 
                 </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a>@User.Identity.Name</a></li>
