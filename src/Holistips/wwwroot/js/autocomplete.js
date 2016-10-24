@@ -1,8 +1,6 @@
 ﻿
         $(function () {
-            function log(message) {
 
-            }
 
 
             $("#SearchQueryLayout").autocomplete({

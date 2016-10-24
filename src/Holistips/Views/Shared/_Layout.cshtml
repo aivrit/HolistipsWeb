@@ -8,7 +8,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+    <link rel="icon" href="~/hicon.ico">
     <title>Holistips Home</title>
 
     <!-- Bootstrap core CSS -->
@@ -31,7 +31,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+                <img class="navbar-brand" src="~/images/holistipsblacksmall.jpg" />
                 <a class="navbar-brand" href="@Url.Action("Index", "Home")">Holistips</a>
+   
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -62,26 +64,19 @@
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
-                    <li class="active"><a href="http://getbootstrap.com/examples/dashboard/#">Overview <span class="sr-only">(current)</span></a></li>
-                    <li><a href="http://getbootstrap.com/examples/dashboard/#">Reports</a></li>
-                    <li><a href="http://getbootstrap.com/examples/dashboard/#">Analytics</a></li>
-                    <li><a href="http://getbootstrap.com/examples/dashboard/#">Export</a></li>
-                </ul>
-                <ul class="nav nav-sidebar">
-                    <li><a href="http://getbootstrap.com/examples/dashboard/">Nav item</a></li>
-                    <li><a href="http://getbootstrap.com/examples/dashboard/">Nav item again</a></li>
-                    <li><a href="http://getbootstrap.com/examples/dashboard/">One more nav</a></li>
-                    <li><a href="http://getbootstrap.com/examples/dashboard/">Another nav item</a></li>
-                    <li><a href="http://getbootstrap.com/examples/dashboard/">More navigation</a></li>
-                </ul>
-                <ul class="nav nav-sidebar">
-                    <li><a href="http://getbootstrap.com/examples/dashboard/">Nav item again</a></li>
-                    <li><a href="http://getbootstrap.com/examples/dashboard/">One more nav</a></li>
-                    <li><a href="http://getbootstrap.com/examples/dashboard/">Another nav item</a></li>
+                    <li class="active"><a href="@Url.Action("Index", "Home")">Dashboard <span class="sr-only">(current)</span></a></li>
+                    <li><a id="opener">Cool Video </a> </li>
                 </ul>
             </div>
             <div>
+                  
                 @RenderBody()
+                <div id="video" title="Cool Video">
+                    <video width="400" controls>
+                        <source src="http://mirror.cessen.com/blender.org/peach/trailer/trailer_iphone.m4v" type="video/x-m4v">
+                        Your browser does not support HTML5 video.
+                    </video>
+                </div> 
             </div>
         </div>
         <hr />
@@ -95,6 +90,7 @@
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="~/js/autocomplete.js"> </script>
+    <script src="~/js/video.js"> </script>
         @RenderSection("scripts", required: false)
 
 </body>
