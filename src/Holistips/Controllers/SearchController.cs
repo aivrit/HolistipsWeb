@@ -18,11 +18,11 @@ namespace Holistips.Controllers
             _context = context;
         }
 
-        public IActionResult Index(string SearchQuery, string PackagesOnly)
+        public IActionResult Index(string SearchQuery, string PackagesOnly, string SearchStats)
         {
             List<TipAndPackage> model = new List<TipAndPackage>();
             const string HtmlCheckboxON = "on";
-            if (SearchQuery != null)
+            if (SearchQuery != null || SearchStats == HtmlCheckboxON)
             {
                // Let view know search query exists
                 ViewBag.SearchQuery = "true";
@@ -30,8 +30,12 @@ namespace Holistips.Controllers
                 // check if packages search
                 if (PackagesOnly != HtmlCheckboxON)
                 {
+                    if (SearchStats == HtmlCheckboxON)
+                    {
+                        return RedirectToAction("SearchStats");
+                    }
                     // Check if hashtag search
-                    if (SearchQuery[0] == '#')
+                    else if (SearchQuery[0] == '#')
                     {
                         model = HashtagSearch(SearchQuery);
                     }
@@ -191,9 +195,29 @@ namespace Holistips.Controllers
             return View(model);
         }
 
+        public IActionResult SearchStats()
+        {
+            List<TipStats> model = new List<TipStats>();
 
-         
+            var linqQuery = from tip in _context.Tips
+                            group tip.ID by tip.TipTitle into g
+                            select new
+                            {
+                                TipTitle = g.Key,
+                                IDSum = g.ToList()
+                            };
 
+            foreach (var item in linqQuery) //retrieve each item and assign to model
+            {
+                model.Add(new TipStats()
+                {
+                    TipTitle = item.TipTitle,
+                    IDSum = item.IDSum.Count                 
+                });
+            }
+
+            return View(model);
+        }
 
 
     }

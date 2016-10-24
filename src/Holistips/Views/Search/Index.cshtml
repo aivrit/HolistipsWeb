@@ -11,7 +11,7 @@
     <div class="row">
         <h2 class="sub-header">Search</h2>
         <form>
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search for..." id="SearchQuery" name="SearchQuery" onkeydown="hashtag()">
                     <span class="input-group-btn">
@@ -19,12 +19,23 @@
                     </span>
                 </div><!-- /input-group -->
             </div><!-- /.col-lg-6 -->
-            <div class="col-lg-6">
+            <div class="col-lg-2">
                 <div class="input-group">
                     <span class="input-group-addon">
                         <input type="checkbox" aria-label="Packages Only" placeholder="Packages Only" id="PackagesOnly" name="PackagesOnly">
                     </span>
-                    <input type="text" class="form-control" aria-label="..." value="Packages Only?" readonly="readonly" style="width:130px;">
+                    <input type="text" class="form-control" aria-label="..." value="Packages Only?" readonly="readonly">
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+            <div class="col-lg-2">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input type="checkbox" aria-label="..." id="SearchStats" name="SearchStats" onchange="stats()">
+                    </span>
+                    <input type="text" class="form-control" placeholder="Search Stats?" readonly="readonly">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit" id="SearchStatsGo" disabled>Go!</button>
+                    </span>
                 </div><!-- /input-group -->
             </div><!-- /.col-lg-6 -->
         </form>

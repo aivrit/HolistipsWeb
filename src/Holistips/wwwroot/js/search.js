@@ -10,3 +10,14 @@
     }
    
 }
+
+
+    function stats() {
+        if ($("#SearchStats").is(':checked') && $("#SearchStats").val() === 'on') {
+            document.getElementById("SearchStatsGo").disabled = false;
+        }
+        else
+        {
+            document.getElementById("SearchStatsGo").disabled = true;
+        }
+}
