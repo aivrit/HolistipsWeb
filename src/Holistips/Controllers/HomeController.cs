@@ -7,6 +7,10 @@ using Holistips.Data;
 using Microsoft.EntityFrameworkCore;
 using Holistips.Models;
 using Microsoft.AspNetCore.Identity;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Holistips.Controllers
 {
@@ -14,6 +18,10 @@ namespace Holistips.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
+
+        // Single HttpClient Instance for the application 
+        // (To avoid exhausting number of sockets available)
+        static HttpClient client = new HttpClient();
 
         public HomeController(ApplicationDbContext context)
         {
@@ -24,7 +32,10 @@ namespace Holistips.Controllers
 
         public ActionResult Index()
         {
-            List<TipAndPackage> model = new List<TipAndPackage>();
+            //Calling quote of the day API
+            QoD();
+
+            List <TipAndPackage> model = new List<TipAndPackage>();
 
             var query = from tip in _context.Tips
                         join package in _context.TipPackages on tip.TipPackage equals package into gj
@@ -59,12 +70,26 @@ namespace Holistips.Controllers
                 });
             }
 
-            
-
-                return View(model);
+            return View(model);
         }
-        
 
+        private async void QoD()
+        {
+            // Web API Request
+            var response = await client.GetAsync("http://quotes.rest/qod.json");
+            var json = await response.Content.ReadAsStringAsync();
+
+            // get JSON result objects into a list
+            JObject jsonString = JObject.Parse(json);
+            IList<JToken> jsonContent = jsonString["contents"]["quotes"].Children().ToList();
+
+            // serialize JSON results into .NET objects
+            QoD quote = JsonConvert.DeserializeObject<QoD>(jsonContent[0].ToString());
+                
+            ViewBag.quoteContent = quote.quote;
+            ViewBag.quoteAuthor = quote.author;
+        }
+                
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
