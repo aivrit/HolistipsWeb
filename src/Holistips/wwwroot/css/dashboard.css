@@ -1,3 +1,26 @@
+/* QoD */
+@font-face{
+  font-family: 'KOMIKAX';
+  src: url(KOMIKAX_.ttf);
+}
+
+.qod .quoteContent{
+  border: 2px solid #a1a1a1;
+  padding: 10px 40px;
+  background: #dddddd;
+  width: 300px;
+  border-radius: 25px;
+}
+
+.qod .quoteContent span{
+  font-family: 'KOMIKAX';
+}
+
+.qod .quoteContent footer{
+  text-shadow: 1px 1px #FF0000;
+}
+
+
 /*
  * Base structure
  */
@@ -103,3 +126,4 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
+

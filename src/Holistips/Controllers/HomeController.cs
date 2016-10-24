@@ -17,6 +17,7 @@ namespace Holistips.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
+        QoD quote = new Models.QoD();
 
         // Single HttpClient Instance for the application 
         // (To avoid exhausting number of sockets available)
@@ -31,7 +32,7 @@ namespace Holistips.Controllers
         {
             //Calling quote of the day API
             QoD();
-
+            
             List <TipAndPackage> model = new List<TipAndPackage>();
 
             var query = from tip in _context.Tips
@@ -72,19 +73,29 @@ namespace Holistips.Controllers
 
         private async void QoD()
         {
-            // Web API Request
-            var response = await client.GetAsync("http://quotes.rest/qod.json");
-            var json = await response.Content.ReadAsStringAsync();
+            try
+            {
+                // Web API Request
+                var response = await client.GetAsync("http://quotes.rest/qod.json");
+                var json = await response.Content.ReadAsStringAsync();
 
-            // get JSON result objects into a list
-            JObject jsonString = JObject.Parse(json);
-            IList<JToken> jsonContent = jsonString["contents"]["quotes"].Children().ToList();
+                // get JSON result objects into a list
+                JObject jsonString = JObject.Parse(json);
+                IList<JToken> jsonContent = jsonString["contents"]["quotes"].Children().ToList();
 
-            // serialize JSON results into .NET objects
-            QoD quote = JsonConvert.DeserializeObject<QoD>(jsonContent[0].ToString());
-                
-            ViewBag.quoteContent = quote.quote;
-            ViewBag.quoteAuthor = quote.author;
+                // serialize JSON results into .NET objects
+                this.quote = JsonConvert.DeserializeObject<QoD>(jsonContent[0].ToString());
+            }
+            catch
+            {
+                this.quote.quote = "The Cake is a lie...";
+                this.quote.author = "GLaDOS";
+            }
+            finally
+            {
+                ViewBag.quoteContent = this.quote.quote;
+                ViewBag.quoteAuthor = this.quote.author;
+            }
         }
                 
         public IActionResult About()
