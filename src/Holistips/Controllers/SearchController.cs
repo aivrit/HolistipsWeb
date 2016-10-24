@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Holistips.Data;
 using Holistips.Models;
+using Newtonsoft.Json;
 
 namespace Holistips.Controllers
 {
@@ -78,6 +79,41 @@ namespace Holistips.Controllers
             }
 
             return model;
+        }
+
+        public string NormalSearchJson(string term)
+        {
+            List<TipAndPackage> model = new List<TipAndPackage>();
+
+            var linqQuery = from tip in _context.Tips
+                            join package in _context.TipPackages on tip.TipPackage equals package into gj
+                            from parentpackage in gj.DefaultIfEmpty()
+                            where (tip.TipTitle.IndexOf(term, StringComparison.CurrentCultureIgnoreCase) >= 0) || (parentpackage != null && parentpackage.PacakgeTitle.IndexOf(term, StringComparison.CurrentCultureIgnoreCase) >= 0)
+                            select new
+                            {
+                                tip.TipAuthorID,
+                                tip.TipTitle,
+                                tip.TipExplanation,
+                                tip.TipWhenTo,
+                                tip.TipWhere,
+                                tip.TipAnalogy,
+                                tip.TipHashtags,
+                                tip.TipRefs,
+                                tip.TipCreationDate,
+                                PacakgeTitle = (parentpackage == null ? String.Empty : parentpackage.PacakgeTitle)
+                            };
+
+            foreach (var item in linqQuery) //retrieve each item and assign to model
+            {
+                model.Add(new TipAndPackage()
+                {
+                    TipTitle = item.TipTitle,
+                });
+            }
+
+            string Json = JsonConvert.SerializeObject(model);
+
+            return Json;
         }
 
         [HttpPost]
