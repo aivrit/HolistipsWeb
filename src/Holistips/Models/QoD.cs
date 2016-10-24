@@ -10,6 +10,5 @@ namespace Holistips.Models
     {
         public string quote { get; set; }
         public string author { get; set; }
-        public string date { get; set; }
     }
 }

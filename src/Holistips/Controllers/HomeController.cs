@@ -18,7 +18,7 @@ namespace Holistips.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
-        QoD quote = new Models.QoD();
+        static QoD quote = new Models.QoD();
 
         // Single HttpClient Instance for the application 
         // (To avoid exhausting number of sockets available)
@@ -34,7 +34,7 @@ namespace Holistips.Controllers
         public ActionResult Index()
         {
             //Calling quote of the day API
-            QoD();
+            QoD();                        
             
             List <TipAndPackage> model = new List<TipAndPackage>();
 
@@ -74,30 +74,30 @@ namespace Holistips.Controllers
             return View(model);
         }
 
-        private async void QoD()
+        private void QoD()
         {
             try
             {
                 // Web API Request
-                var response = await client.GetAsync("http://quotes.rest/qod.json");
-                var json = await response.Content.ReadAsStringAsync();
+                var response =  client.GetAsync("http://quotes.rest/qod.json");
+                var json = response.Result.Content.ReadAsStringAsync();
 
                 // get JSON result objects into a list
-                JObject jsonString = JObject.Parse(json);
+                JObject jsonString = JObject.Parse(json.Result);
                 IList<JToken> jsonContent = jsonString["contents"]["quotes"].Children().ToList();
 
                 // serialize JSON results into .NET objects
-                this.quote = JsonConvert.DeserializeObject<QoD>(jsonContent[0].ToString());
+                quote = JsonConvert.DeserializeObject<QoD>(jsonContent[0].ToString());
             }
             catch
             {
-                this.quote.quote = "The Cake is a lie...";
-                this.quote.author = "GLaDOS";
+                quote.quote = "The Cake is a lie...";
+                quote.author = "GLaDOS";
             }
             finally
             {
-                ViewBag.quoteContent = this.quote.quote;
-                ViewBag.quoteAuthor = this.quote.author;
+                ViewBag.quoteContent = quote.quote;
+                ViewBag.quoteAuthor = quote.author;
             }
         }
                 
