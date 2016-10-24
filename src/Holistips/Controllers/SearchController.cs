@@ -83,7 +83,7 @@ namespace Holistips.Controllers
 
         public string NormalSearchJson(string term)
         {
-            List<TipAndPackage> model = new List<TipAndPackage>();
+            List<string> model = new List<string>();
 
             var linqQuery = from tip in _context.Tips
                             join package in _context.TipPackages on tip.TipPackage equals package into gj
@@ -105,10 +105,7 @@ namespace Holistips.Controllers
 
             foreach (var item in linqQuery) //retrieve each item and assign to model
             {
-                model.Add(new TipAndPackage()
-                {
-                    TipTitle = item.TipTitle,
-                });
+                model.Add(item.TipTitle);
             }
 
             string Json = JsonConvert.SerializeObject(model);

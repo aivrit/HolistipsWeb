@@ -20,9 +20,6 @@ namespace Holistips.Controllers
         private readonly ApplicationDbContext _context;
         static QoD quote = new Models.QoD();
 
-        // Single HttpClient Instance for the application 
-        // (To avoid exhausting number of sockets available)
-        static HttpClient client = new HttpClient();
 
         public HomeController(ApplicationDbContext context)
         {
@@ -78,6 +75,8 @@ namespace Holistips.Controllers
         {
             try
             {
+                HttpClient client = new HttpClient();
+
                 // Web API Request
                 var response =  client.GetAsync("http://quotes.rest/qod.json");
                 var json = response.Result.Content.ReadAsStringAsync();
@@ -98,6 +97,8 @@ namespace Holistips.Controllers
             {
                 ViewBag.quoteContent = quote.quote;
                 ViewBag.quoteAuthor = quote.author;
+
+                client.Dispose();
             }
         }
                 

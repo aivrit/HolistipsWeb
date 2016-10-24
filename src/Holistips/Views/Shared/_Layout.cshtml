@@ -47,7 +47,7 @@
                     <li><a asp-area="" asp-controller="TipPackages" asp-action="Index">Packages</a></li>
                 </ul>
                 <form class="navbar-form navbar-right">
-                    <input type="text" class="form-control" placeholder="Search..." name="SearchQueryLayout" id="SearchQueryLayout"  formaction="@Url.Action("Index", "Search")">
+                    <input type="text" class="form-control" placeholder="Search..." name="SearchQuery" id="SearchQueryLayout"  formaction="@Url.Action("Index", "Search")">
                 </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a>@User.Identity.Name</a></li>
