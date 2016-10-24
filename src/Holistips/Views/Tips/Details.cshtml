@@ -5,69 +5,72 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-<div>
-    <h4>Tip</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TipAnalogy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TipAnalogy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TipAuthorID)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TipAuthorID)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TipCreationDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TipCreationDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TipExplanation)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TipExplanation)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TipHashtags)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TipHashtags)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TipRefs)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TipRefs)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TipTitle)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TipTitle)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TipWhenTo)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TipWhenTo)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TipWhere)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TipWhere)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <h2>Details</h2>
+
+    <div>
+        <h4>Tip</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.TipAnalogy)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TipAnalogy)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TipAuthorID)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TipAuthorID)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TipCreationDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TipCreationDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TipExplanation)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TipExplanation)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TipHashtags)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TipHashtags)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TipRefs)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TipRefs)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TipTitle)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TipTitle)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TipWhenTo)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TipWhenTo)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TipWhere)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TipWhere)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
 </div>

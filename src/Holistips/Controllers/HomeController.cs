@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Holistips.Data;
 using Microsoft.EntityFrameworkCore;
 using Holistips.Models;
+using Microsoft.AspNetCore.Identity;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
@@ -27,6 +28,8 @@ namespace Holistips.Controllers
         {
             _context = context;
         }
+
+        
 
         public ActionResult Index()
         {

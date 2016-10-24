@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Holistips.Data;
 using Holistips.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Holistips.Controllers
 {
@@ -42,7 +43,9 @@ namespace Holistips.Controllers
             return View(tipPackage);
         }
 
+
         // GET: TipPackages/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -51,6 +54,7 @@ namespace Holistips.Controllers
         // POST: TipPackages/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,PacakgeTitle,PackageDescription")] TipPackage tipPackage)
@@ -65,6 +69,7 @@ namespace Holistips.Controllers
         }
 
         // GET: TipPackages/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -83,6 +88,7 @@ namespace Holistips.Controllers
         // POST: TipPackages/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,PacakgeTitle,PackageDescription")] TipPackage tipPackage)
@@ -116,6 +122,7 @@ namespace Holistips.Controllers
         }
 
         // GET: TipPackages/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -133,6 +140,7 @@ namespace Holistips.Controllers
         }
 
         // POST: TipPackages/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
