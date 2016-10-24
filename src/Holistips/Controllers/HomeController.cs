@@ -73,10 +73,9 @@ namespace Holistips.Controllers
 
         private void QoD()
         {
+            HttpClient client = new HttpClient();
             try
-            {
-                HttpClient client = new HttpClient();
-
+            {   
                 // Web API Request
                 var response =  client.GetAsync("http://quotes.rest/qod.json");
                 var json = response.Result.Content.ReadAsStringAsync();
