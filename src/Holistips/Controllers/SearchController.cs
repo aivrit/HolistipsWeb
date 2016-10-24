@@ -24,12 +24,21 @@ namespace Holistips.Controllers
             const string HtmlCheckboxON = "on";
             if (SearchQuery != null)
             {
-               
+               // Let view know search query exists
                 ViewBag.SearchQuery = "true";
 
-                if(PackagesOnly != HtmlCheckboxON)
+                // check if packages search
+                if (PackagesOnly != HtmlCheckboxON)
                 {
-                    model = NormalSearch(SearchQuery);
+                    // Check if hashtag search
+                    if (SearchQuery[0] == '#')
+                    {
+                        model = HashtagSearch(SearchQuery);
+                    }
+                    else
+                    {
+                        model = NormalSearch(SearchQuery);
+                    }
                 }
                 else
                 {
@@ -48,6 +57,47 @@ namespace Holistips.Controllers
                             join package in _context.TipPackages on tip.TipPackage equals package into gj
                             from parentpackage in gj.DefaultIfEmpty()
                             where (tip.TipTitle.IndexOf(SearchQuery, StringComparison.CurrentCultureIgnoreCase) >= 0) || (parentpackage != null && parentpackage.PacakgeTitle.IndexOf(SearchQuery, StringComparison.CurrentCultureIgnoreCase) >=0)
+                            select new
+                            {
+                                tip.TipAuthorID,
+                                tip.TipTitle,
+                                tip.TipExplanation,
+                                tip.TipWhenTo,
+                                tip.TipWhere,
+                                tip.TipAnalogy,
+                                tip.TipHashtags,
+                                tip.TipRefs,
+                                tip.TipCreationDate,
+                                PacakgeTitle = (parentpackage == null ? String.Empty : parentpackage.PacakgeTitle)
+                            };
+
+            foreach (var item in linqQuery) //retrieve each item and assign to model
+            {
+                model.Add(new TipAndPackage()
+                {
+                    PackageTitle = item.PacakgeTitle,
+                    TipAnalogy = item.TipAnalogy,
+                    TipCreationDate = item.TipCreationDate,
+                    TipExplanation = item.TipExplanation,
+                    TipHashtags = item.TipHashtags,
+                    TipRefs = item.TipRefs,
+                    TipTitle = item.TipTitle,
+                    TipWhenTo = item.TipWhenTo,
+                    TipWhere = item.TipWhere
+                });
+            }
+
+            return model;
+        }
+
+        public List<TipAndPackage> HashtagSearch(string SearchQuery)
+        {
+            List<TipAndPackage> model = new List<TipAndPackage>();
+
+            var linqQuery = from tip in _context.Tips
+                            join package in _context.TipPackages on tip.TipPackage equals package into gj
+                            from parentpackage in gj.DefaultIfEmpty()
+                            where (tip.TipHashtags.IndexOf(SearchQuery, StringComparison.CurrentCultureIgnoreCase) >= 0)
                             select new
                             {
                                 tip.TipAuthorID,
