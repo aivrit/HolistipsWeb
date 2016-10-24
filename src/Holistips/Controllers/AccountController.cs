@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Holistips.Models;
 using Holistips.Models.AccountViewModels;
 using Holistips.Services;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Holistips.Controllers
 {
@@ -19,6 +20,7 @@ namespace Holistips.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
@@ -26,15 +28,40 @@ namespace Holistips.Controllers
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
+            RoleManager<IdentityRole> roleManager,
             IEmailSender emailSender,
             ISmsSender smsSender,
             ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
+        }
+
+        public async Task<IActionResult> Setup()
+        {
+            var userId = _userManager.GetUserId(User);
+            var userTask = _userManager.GetUserAsync(User);
+            ApplicationUser user = userTask.Result;
+
+            var adminRoleTask = _roleManager.FindByNameAsync("Admin");
+            if (adminRoleTask.Result == null)
+            {
+                IdentityRole adminRole = new IdentityRole("Admin");
+                await _roleManager.CreateAsync(adminRole);
+            }
+            else
+            {
+                if (!await _userManager.IsInRoleAsync(user, adminRoleTask.Result.Name))
+                {
+                    await _userManager.AddToRoleAsync(user, adminRoleTask.Result.Name);
+                }
+            }
+           
+            return Ok();
         }
 
         //
@@ -92,6 +119,9 @@ namespace Holistips.Controllers
         public IActionResult Register(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
+
+
+
             return View();
         }
 

@@ -13,6 +13,7 @@ using Holistips.Data;
 using Holistips.Models;
 using Holistips.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 
 namespace Holistips
 {
@@ -100,6 +101,8 @@ namespace Holistips
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+
         }
     }
 }

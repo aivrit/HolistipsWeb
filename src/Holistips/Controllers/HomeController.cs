@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Holistips.Data;
 using Microsoft.EntityFrameworkCore;
 using Holistips.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Holistips.Controllers
 {
@@ -18,6 +19,8 @@ namespace Holistips.Controllers
         {
             _context = context;
         }
+
+        
 
         public ActionResult Index()
         {

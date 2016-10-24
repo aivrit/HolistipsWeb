@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Holistips.Data;
 using Holistips.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Holistips.Controllers
 {
@@ -44,6 +45,7 @@ namespace Holistips.Controllers
         }
 
         // GET: Tips/Create
+        [Authorize]
         public IActionResult Create()
         {
             ViewData["TipPackageID"] = new SelectList(_context.TipPackages, "ID", "ID");
@@ -53,6 +55,7 @@ namespace Holistips.Controllers
         // POST: Tips/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,TipAnalogy,TipAuthorID,TipCreationDate,TipExplanation,TipHashtags,TipPackageID,TipRefs,TipTitle,TipWhenTo,TipWhere")] Tip tip)
@@ -68,7 +71,9 @@ namespace Holistips.Controllers
             return View(tip);
         }
 
+
         // GET: Tips/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -85,9 +90,11 @@ namespace Holistips.Controllers
             return View(tip);
         }
 
+
         // POST: Tips/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,TipAnalogy,TipAuthorID,TipCreationDate,TipExplanation,TipHashtags,TipPackageID,TipRefs,TipTitle,TipWhenTo,TipWhere")] Tip tip)
@@ -121,7 +128,9 @@ namespace Holistips.Controllers
             return View(tip);
         }
 
+
         // GET: Tips/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -139,6 +148,7 @@ namespace Holistips.Controllers
         }
 
         // POST: Tips/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
