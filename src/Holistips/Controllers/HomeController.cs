@@ -96,7 +96,7 @@ namespace Holistips.Controllers
             {
                 ViewBag.quoteContent = quote.quote;
                 ViewBag.quoteAuthor = quote.author;
-
+                
                 client.Dispose();
             }
         }

@@ -41,6 +41,7 @@ namespace Holistips.Controllers
             _logger = loggerFactory.CreateLogger<AccountController>();
         }
 
+        // Temporary function to create admin role and insert alonbartzlil@gmail.com into it
         public async Task<IActionResult> Setup()
         {
             var userId = _userManager.GetUserId(User);

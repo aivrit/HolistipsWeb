@@ -199,6 +199,15 @@ namespace Holistips.Controllers
         {
             List<TipStats> model = new List<TipStats>();
 
+            model = SearchStatsQuery();
+           
+            return View(model);
+        }
+
+        private List<TipStats> SearchStatsQuery()
+        {
+            List<TipStats> model = new List<TipStats>();
+
             var linqQuery = from tip in _context.Tips
                             group tip.ID by tip.TipTitle into g
                             select new
@@ -212,13 +221,29 @@ namespace Holistips.Controllers
                 model.Add(new TipStats()
                 {
                     TipTitle = item.TipTitle,
-                    IDSum = item.IDSum.Count                 
+                    IDSum = item.IDSum.Count
                 });
             }
 
-            return View(model);
+            return model;
         }
 
+        public string SearchStatsJson()
+        {
+            string json = "{\"name\": \"d3\",\"children\": ";
+            json += JsonConvert.SerializeObject(SearchStatsQuery());
+            json = json.Replace("TipTitle","name");
+            json = json.Replace("IDSum", "size");
+            json += "}";
+
+            using (System.IO.StreamWriter file =
+            new System.IO.StreamWriter(new System.IO.FileStream(@"wwwroot\json.json", System.IO.FileMode.Truncate, System.IO.FileAccess.Write)))
+            {
+                file.WriteLine(json);
+            }
+
+            return json;
+        }
 
     }
 }

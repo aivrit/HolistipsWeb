@@ -20,6 +20,15 @@
   text-shadow: 1px 1px #FF0000;
 }
 
+/*
+    d3
+*/
+
+    path {
+        stroke: #fff;
+        fill-rule: evenodd;
+    }
+
 
 /*
  * Base structure

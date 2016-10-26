@@ -1,5 +1,6 @@
 ﻿/// <autosync enabled="true" />
 /// <reference path="js/autocomplete.js" />
+/// <reference path="js/d3.js" />
 /// <reference path="js/search.js" />
 /// <reference path="js/site.js" />
 /// <reference path="js/video.js" />

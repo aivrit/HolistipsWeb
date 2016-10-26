@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h1 class="page-header">Dashboard</h1>
     <div class="qod">
@@ -13,6 +14,9 @@
         </div>
     </div>
     
+    <div id="d3graph" style="padding-top:60px">
+       
+    </div>
     <button type="button" class="btn btn-primary" aria-label="Left Align" style="float:right;margin-right:5px;" onclick="location.href='@Url.Action("Create", "Tips")'">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     </button>
@@ -52,3 +56,6 @@
         </table>
     </div>
 </div>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="~/js/d3.js"></script>
